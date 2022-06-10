@@ -1,0 +1,268 @@
+[
+    {
+        "id": 0,
+        "category": "accessories",
+        "isFeatured": true,
+        "name": "Vagabond sack",
+        "price": 120.00
+    },
+    {
+        "id": 1,
+        "category": "accessories",
+        "isFeatured": true,
+        "name": "Stella sunglasses",
+        "price": 58.00
+    },
+    {
+        "id": 2,
+        "category": "accessories",
+        "isFeatured": false,
+        "name": "Whitney belt",
+        "price": 35.00
+    },
+    {
+        "id": 3,
+        "category": "accessories",
+        "isFeatured": true,
+        "name": "Garden strand",
+        "price": 98.00
+    },
+    {
+        "id": 4,
+        "category": "accessories",
+        "isFeatured": false,
+        "name": "Strut earrings",
+        "price": 34.00
+    },
+    {
+        "id": 5,
+        "category": "accessories",
+        "isFeatured": false,
+        "name": "Varsity socks",
+        "price": 12.00
+    },
+    {
+        "id": 6,
+        "category": "accessories",
+        "isFeatured": false,
+        "name": "Weave keyring",
+        "price": 16.00
+    },
+    {
+        "id": 7,
+        "category": "accessories",
+        "isFeatured": true,
+        "name": "Gatsby hat",
+        "price": 40.00
+    },
+    {
+        "id": 8,
+        "category": "accessories",
+        "isFeatured": true,
+        "name": "Shrug bag",
+        "price": 198.00
+    },
+    {
+        "id": 9,
+        "category": "home",
+        "isFeatured": true,
+        "name": "Gilt desk trio",
+        "price": 58.00
+    },
+    {
+        "id": 10,
+        "category": "home",
+        "isFeatured": false,
+        "name": "Copper wire rack",
+        "price": 18.00
+    },
+    {
+        "id": 11,
+        "category": "home",
+        "isFeatured": false,
+        "name": "Soothe ceramic set",
+        "price": 28.00
+    },
+    {
+        "id": 12,
+        "category": "home",
+        "isFeatured": false,
+        "name": "Hurrahs tea set",
+        "price": 34.00
+    },
+    {
+        "id": 13,
+        "category": "home",
+        "isFeatured": true,
+        "name": "Blue stone mug",
+        "price": 18.00
+    },
+    {
+        "id": 14,
+        "category": "home",
+        "isFeatured": true,
+        "name": "Rainwater tray",
+        "price": 27.00
+    },
+    {
+        "id": 15,
+        "category": "home",
+        "isFeatured": true,
+        "name": "Chambray napkins",
+        "price": 16.00
+    },
+    {
+        "id": 16,
+        "category": "home",
+        "isFeatured": true,
+        "name": "Succulent planters",
+        "price": 16.00
+    },
+    {
+        "id": 17,
+        "category": "home",
+        "isFeatured": false,
+        "name": "Quartet table",
+        "price": 175.00
+    },
+    {
+        "id": 18,
+        "category": "home",
+        "isFeatured": true,
+        "name": "Kitchen quattro",
+        "price": 129.00
+    },
+    {
+        "id": 19,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Clay sweater",
+        "price": 48.00
+    },
+    {
+        "id": 20,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Sea tunic",
+        "price": 45.00
+    },
+    {
+        "id": 21,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Plaster tunic",
+        "price": 38.00
+    },
+    {
+        "id": 22,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "White pinstripe shirt",
+        "price": 70.00
+    },
+    {
+        "id": 23,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Chambray shirt",
+        "price": 70.00
+    },
+    {
+        "id": 24,
+        "category": "clothing",
+        "isFeatured": true,
+        "name": "Seabreeze sweater",
+        "price": 60.00
+    },
+    {
+        "id": 25,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Gentry jacket",
+        "price": 178.00
+    },
+    {
+        "id": 26,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Navy trousers",
+        "price": 74.00
+    },
+    {
+        "id": 27,
+        "category": "clothing",
+        "isFeatured": true,
+        "name": "Walter henley (white)",
+        "price": 38.00
+    },
+    {
+        "id": 28,
+        "category": "clothing",
+        "isFeatured": true,
+        "name": "Surf and perf shirt",
+        "price": 48.00
+    },
+    {
+        "id": 29,
+        "category": "clothing",
+        "isFeatured": true,
+        "name": "Ginger scarf",
+        "price": 98.00
+    },
+    {
+        "id": 30,
+        "category": "clothing",
+        "isFeatured": true,
+        "name": "Ramona crossover",
+        "price": 68.00
+    },
+    {
+        "id": 31,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Chambray shirt",
+        "price": 38.00
+    },
+    {
+        "id": 32,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Classic white collar",
+        "price": 58.00
+    },
+    {
+        "id": 33,
+        "category": "clothing",
+        "isFeatured": true,
+        "name": "Cerise scallop tee",
+        "price": 42.00
+    },
+    {
+        "id": 34,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Shoulder rolls tee",
+        "price": 27.00
+    },
+    {
+        "id": 35,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Grey slouch tank",
+        "price": 24.00
+    },
+    {
+        "id": 36,
+        "category": "clothing",
+        "isFeatured": false,
+        "name": "Sunshirt dress",
+        "price": 58.00
+    },
+    {
+        "id": 37,
+        "category": "clothing",
+        "isFeatured": true,
+        "name": "Fine lines tee",
+        "price": 58.00
+    }
+]
