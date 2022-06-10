@@ -20,6 +20,7 @@ class MainScreen extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(elevation: 0.0),
       ),
       home: ReactionBuilder(
         builder: (context) {
@@ -39,15 +40,13 @@ class MainScreen extends StatelessWidget {
           builder: (context) {
             final appStore = context.watch<AppStore>();
             return Scaffold(
-              body: SafeArea(
-                child: IndexedStack(
-                  index: appStore.currentPageIndex,
-                  children: const [
-                    ProductsScreen(),
-                    SearchScreen(),
-                    CartScreen(),
-                  ],
-                ),
+              body: IndexedStack(
+                index: appStore.currentPageIndex,
+                children: const [
+                  ProductsScreen(),
+                  SearchScreen(),
+                  CartScreen(),
+                ],
               ),
               bottomNavigationBar: BottomNavigationBar(
                 elevation: 5,

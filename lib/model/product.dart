@@ -10,7 +10,7 @@ class Product {
   final int id;
   final bool isFeatured;
   final String name;
-  final int price;
+  final double price;
 
   Product({
     required this.id,
@@ -21,7 +21,7 @@ class Product {
   });
 
   Product.fromJson(Map<String, dynamic> json)
-      : id = json['name'],
+      : id = json['id'],
         category = Product.parse(json['category']),
         isFeatured = json['isFeatured'],
         name = json['name'],

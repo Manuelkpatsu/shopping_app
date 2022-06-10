@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/store/app_store.dart';
+import 'package:shopping_app/theme/styles.dart';
 
-class ProductsScreen extends StatefulWidget {
+import 'widget/product_tile.dart';
+
+class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProductsScreen> createState() => _ProductsScreenState();
-}
-
-class _ProductsScreenState extends State<ProductsScreen> {
-  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Products Screen')),
+    final appStore = context.watch<AppStore>();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Shopping Store'),
+        centerTitle: true,
+      ),
+      body: Observer(
+        builder: (context) {
+          return ListView.separated(
+            itemCount: appStore.availableProducts.length,
+            separatorBuilder: (context, index) => const Divider(
+              color: Styles.productRowDivider,
+            ),
+            itemBuilder: (context, index) {
+              final product = appStore.availableProducts[index];
+              return ProductTile(product: product);
+            },
+          );
+        },
+      ),
     );
   }
 }
