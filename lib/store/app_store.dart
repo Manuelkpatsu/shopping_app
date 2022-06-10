@@ -15,6 +15,9 @@ abstract class _AppStore with Store {
   final double _shippingCostPerItem = 7;
 
   @observable
+  int currentPageIndex = 0;
+
+  @observable
   bool isLoading = false;
 
   // The currently selected category of products.
@@ -62,13 +65,18 @@ abstract class _AppStore with Store {
   // Total cost to order everything in the cart.
   double get totalCost => subtotalCost + shippingCost + tax;
 
+  @action
+  Future<void> initialize() async {
+    isLoading = true;
+    await _loadProducts();
+    isLoading = false;
+  }
+
   // Loads the list of available products from the repo.
   @action
-  Future<void> loadProducst() async {
-    isLoading = true;
+  Future<void> _loadProducts() async {
     final products = await _repository.getProducts(selectedCategory);
     availableProducts = ObservableList.of(products);
-    isLoading = false;
   }
 
   // Search the product catalog
@@ -113,4 +121,7 @@ abstract class _AppStore with Store {
 
   @action
   void setCategory(Category newCategory) => selectedCategory = newCategory;
+
+  @action
+  void changePage(int index) => currentPageIndex = index;
 }

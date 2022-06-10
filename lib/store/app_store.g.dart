@@ -31,6 +31,22 @@ mixin _$AppStore on _AppStore, Store {
               name: '_AppStore.shippingCost'))
           .value;
 
+  late final _$currentPageIndexAtom =
+      Atom(name: '_AppStore.currentPageIndex', context: context);
+
+  @override
+  int get currentPageIndex {
+    _$currentPageIndexAtom.reportRead();
+    return super.currentPageIndex;
+  }
+
+  @override
+  set currentPageIndex(int value) {
+    _$currentPageIndexAtom.reportWrite(value, super.currentPageIndex, () {
+      super.currentPageIndex = value;
+    });
+  }
+
   late final _$isLoadingAtom =
       Atom(name: '_AppStore.isLoading', context: context);
 
@@ -95,12 +111,20 @@ mixin _$AppStore on _AppStore, Store {
     });
   }
 
-  late final _$loadProducstAsyncAction =
-      AsyncAction('_AppStore.loadProducst', context: context);
+  late final _$initializeAsyncAction =
+      AsyncAction('_AppStore.initialize', context: context);
 
   @override
-  Future<void> loadProducst() {
-    return _$loadProducstAsyncAction.run(() => super.loadProducst());
+  Future<void> initialize() {
+    return _$initializeAsyncAction.run(() => super.initialize());
+  }
+
+  late final _$_loadProductsAsyncAction =
+      AsyncAction('_AppStore._loadProducts', context: context);
+
+  @override
+  Future<void> _loadProducts() {
+    return _$_loadProductsAsyncAction.run(() => super._loadProducts());
   }
 
   late final _$getProductByIdAsyncAction =
@@ -170,8 +194,20 @@ mixin _$AppStore on _AppStore, Store {
   }
 
   @override
+  void changePage(int index) {
+    final _$actionInfo =
+        _$_AppStoreActionController.startAction(name: '_AppStore.changePage');
+    try {
+      return super.changePage(index);
+    } finally {
+      _$_AppStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+currentPageIndex: ${currentPageIndex},
 isLoading: ${isLoading},
 selectedCategory: ${selectedCategory},
 availableProducts: ${availableProducts},
