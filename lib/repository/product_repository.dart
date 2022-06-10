@@ -21,16 +21,4 @@ class ProductRepository {
           .toList();
     }
   }
-
-  Future<Product> getProduct(int id) async {
-    String jsonString = await rootBundle.loadString('data/product.json');
-    List<dynamic> decodedJson = json.decode(jsonString);
-
-    List<Product> productList = decodedJson
-        .map((productJson) => Product.fromJson(productJson))
-        .where((product) => product.id == id)
-        .toList();
-
-    return productList[0];
-  }
 }
