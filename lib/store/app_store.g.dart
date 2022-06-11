@@ -30,6 +30,13 @@ mixin _$AppStore on _AppStore, Store {
       (_$shippingCostComputed ??= Computed<double>(() => super.shippingCost,
               name: '_AppStore.shippingCost'))
           .value;
+  Computed<List<Product>>? _$copyOfProductsComputed;
+
+  @override
+  List<Product> get copyOfProducts => (_$copyOfProductsComputed ??=
+          Computed<List<Product>>(() => super.copyOfProducts,
+              name: '_AppStore.copyOfProducts'))
+      .value;
 
   late final _$currentPageIndexAtom =
       Atom(name: '_AppStore.currentPageIndex', context: context);
@@ -44,6 +51,22 @@ mixin _$AppStore on _AppStore, Store {
   set currentPageIndex(int value) {
     _$currentPageIndexAtom.reportWrite(value, super.currentPageIndex, () {
       super.currentPageIndex = value;
+    });
+  }
+
+  late final _$searchQueryAtom =
+      Atom(name: '_AppStore.searchQuery', context: context);
+
+  @override
+  String get searchQuery {
+    _$searchQueryAtom.reportRead();
+    return super.searchQuery;
+  }
+
+  @override
+  set searchQuery(String value) {
+    _$searchQueryAtom.reportWrite(value, super.searchQuery, () {
+      super.searchQuery = value;
     });
   }
 
@@ -139,11 +162,11 @@ mixin _$AppStore on _AppStore, Store {
       ActionController(name: '_AppStore', context: context);
 
   @override
-  void search(String searchTerm) {
-    final _$actionInfo =
-        _$_AppStoreActionController.startAction(name: '_AppStore.search');
+  void clearSearchQuery() {
+    final _$actionInfo = _$_AppStoreActionController.startAction(
+        name: '_AppStore.clearSearchQuery');
     try {
-      return super.search(searchTerm);
+      return super.clearSearchQuery();
     } finally {
       _$_AppStoreActionController.endAction(_$actionInfo);
     }
@@ -208,13 +231,15 @@ mixin _$AppStore on _AppStore, Store {
   String toString() {
     return '''
 currentPageIndex: ${currentPageIndex},
+searchQuery: ${searchQuery},
 isLoading: ${isLoading},
 selectedCategory: ${selectedCategory},
 availableProducts: ${availableProducts},
 productsInCart: ${productsInCart},
 totalCartQuantity: ${totalCartQuantity},
 subtotalCost: ${subtotalCost},
-shippingCost: ${shippingCost}
+shippingCost: ${shippingCost},
+copyOfProducts: ${copyOfProducts}
     ''';
   }
 }

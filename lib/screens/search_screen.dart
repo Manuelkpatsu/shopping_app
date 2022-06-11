@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/store/app_store.dart';
+import 'package:shopping_app/theme/styles.dart';
+
+import 'widget/product_tile.dart';
+import 'widget/search_text_field.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -8,10 +15,48 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _controller = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+    _focusNode.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Search Screen')),
+    final appStore = context.watch<AppStore>();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: SearchTextField(
+          controller: _controller,
+          focusNode: _focusNode,
+          onChanged: (String? searchTerm) => appStore.searchQuery = searchTerm!,
+          clearSearchQuery: () {
+            _controller.clear();
+            context.read<AppStore>().clearSearchQuery();
+          },
+        ),
+      ),
+      body: Observer(
+        builder: (context) {
+          final products = appStore.search();
+
+          return ListView.separated(
+            itemCount: products.length,
+            separatorBuilder: (context, index) => const Divider(
+              color: Styles.productRowDivider,
+            ),
+            itemBuilder: (context, index) {
+              final product = products[index];
+              return ProductTile(product: product);
+            },
+          );
+        },
+      ),
     );
   }
 }

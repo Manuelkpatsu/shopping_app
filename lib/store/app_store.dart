@@ -18,6 +18,9 @@ abstract class _AppStore with Store {
   int currentPageIndex = 0;
 
   @observable
+  String searchQuery = '';
+
+  @observable
   bool isLoading = false;
 
   // The currently selected category of products.
@@ -65,6 +68,32 @@ abstract class _AppStore with Store {
   // Total cost to order everything in the cart.
   double get totalCost => subtotalCost + shippingCost + tax;
 
+  @computed
+  List<Product> get copyOfProducts {
+    if (availableProducts.isEmpty) {
+      return [];
+    }
+
+    if (selectedCategory == Category.all) {
+      return List.from(availableProducts);
+    } else {
+      return availableProducts.where((p) {
+        return p.category == selectedCategory;
+      }).toList();
+    }
+  }
+
+  List<Product> search() {
+    return copyOfProducts.where((product) {
+      return product.name.toLowerCase().contains(searchQuery.toLowerCase());
+    }).toList();
+  }
+
+  @action
+  void clearSearchQuery() {
+    searchQuery = '';
+  }
+
   @action
   Future<void> initialize() async {
     isLoading = true;
@@ -77,14 +106,6 @@ abstract class _AppStore with Store {
   Future<void> _loadProducts() async {
     final products = await _repository.getProducts(selectedCategory);
     availableProducts = ObservableList.of(products);
-  }
-
-  // Search the product catalog
-  @action
-  void search(String searchTerm) {
-    availableProducts.where((product) {
-      return product.name.toLowerCase().contains(searchTerm.toLowerCase());
-    }).toList();
   }
 
   // Returns the Product instance matching the provided id.
