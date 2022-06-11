@@ -150,14 +150,6 @@ mixin _$AppStore on _AppStore, Store {
     return _$_loadProductsAsyncAction.run(() => super._loadProducts());
   }
 
-  late final _$getProductByIdAsyncAction =
-      AsyncAction('_AppStore.getProductById', context: context);
-
-  @override
-  Future<Product> getProductById(int id) {
-    return _$getProductByIdAsyncAction.run(() => super.getProductById(id));
-  }
-
   late final _$_AppStoreActionController =
       ActionController(name: '_AppStore', context: context);
 
@@ -167,6 +159,17 @@ mixin _$AppStore on _AppStore, Store {
         name: '_AppStore.clearSearchQuery');
     try {
       return super.clearSearchQuery();
+    } finally {
+      _$_AppStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  Product getProductById(int id) {
+    final _$actionInfo = _$_AppStoreActionController.startAction(
+        name: '_AppStore.getProductById');
+    try {
+      return super.getProductById(id);
     } finally {
       _$_AppStoreActionController.endAction(_$actionInfo);
     }

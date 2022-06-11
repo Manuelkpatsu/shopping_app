@@ -49,6 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
             itemCount: products.length,
             separatorBuilder: (context, index) => const Divider(
               color: Styles.productRowDivider,
+              height: 0,
             ),
             itemBuilder: (context, index) {
               final product = products[index];

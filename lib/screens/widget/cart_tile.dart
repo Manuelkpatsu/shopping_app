@@ -1,14 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/model/product.dart';
-import 'package:shopping_app/store/app_store.dart';
 import 'package:shopping_app/theme/styles.dart';
-import 'package:provider/provider.dart';
 
-class ProductTile extends StatelessWidget {
+class CartTile extends StatelessWidget {
   final Product product;
+  final int quantity;
 
-  const ProductTile({Key? key, required this.product}) : super(key: key);
+  const CartTile({
+    Key? key,
+    required this.product,
+    required this.quantity,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,19 @@ class ProductTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  productName(),
-                  const SizedBox(height: 8),
-                  productPrice(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      productName(),
+                      productPrice(),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  productQuantity(),
                 ],
               ),
             ),
           ),
-          addToFavoriteButton(context),
         ],
       ),
     );
@@ -44,8 +51,8 @@ class ProductTile extends StatelessWidget {
         product.assetName,
         package: product.assetPackage,
         fit: BoxFit.cover,
-        width: 80,
-        height: 80,
+        width: 50,
+        height: 50,
       ),
     );
   }
@@ -59,16 +66,16 @@ class ProductTile extends StatelessWidget {
 
   Widget productPrice() {
     return Text(
-      'Ghs${product.price.toStringAsFixed(2)}',
+      'Ghs${(quantity * product.price).toStringAsFixed(2)}',
       style: Styles.productRowItemPrice,
     );
   }
 
-  Widget addToFavoriteButton(BuildContext context) {
-    return IconButton(
-      splashRadius: 20,
-      onPressed: () => context.read<AppStore>().addProductToCart(product.id),
-      icon: const Icon(CupertinoIcons.shopping_cart),
+  Widget productQuantity() {
+    return Text(
+      '${quantity > 1 ? '$quantity x ' : ''}'
+      'Ghs${product.price.toStringAsFixed(2)}',
+      style: Styles.productRowItemPrice,
     );
   }
 }

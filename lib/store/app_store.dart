@@ -110,7 +110,7 @@ abstract class _AppStore with Store {
 
   // Returns the Product instance matching the provided id.
   @action
-  Future<Product> getProductById(int id) async {
+  Product getProductById(int id) {
     return availableProducts.firstWhere((product) => product.id == id);
   }
 
@@ -120,7 +120,7 @@ abstract class _AppStore with Store {
     if (!productsInCart.containsKey(productId)) {
       productsInCart[productId] = 1;
     } else {
-      productsInCart[productId]! + 1;
+      productsInCart[productId] = productsInCart[productId]! + 1;
     }
   }
 
@@ -131,7 +131,7 @@ abstract class _AppStore with Store {
       if (productsInCart[productId] == 1) {
         productsInCart.remove(productId);
       } else {
-        productsInCart[productId]! - 1;
+        productsInCart[productId] = productsInCart[productId]! - 1;
       }
     }
   }

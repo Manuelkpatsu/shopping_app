@@ -24,6 +24,7 @@ class ProductsScreen extends StatelessWidget {
             itemCount: appStore.availableProducts.length,
             separatorBuilder: (context, index) => const Divider(
               color: Styles.productRowDivider,
+              height: 0,
             ),
             itemBuilder: (context, index) {
               final product = appStore.availableProducts[index];
