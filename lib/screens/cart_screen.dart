@@ -48,7 +48,8 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 const Divider(height: 0),
-                Padding(
+                Container(
+                  color: Colors.white,
                   padding: const EdgeInsets.all(16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,

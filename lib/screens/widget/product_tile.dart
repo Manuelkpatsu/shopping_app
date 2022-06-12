@@ -78,6 +78,7 @@ class ProductTile extends StatelessWidget {
               context.read<AppStore>().addProductToCart(product.id);
               final snackBar = SnackBar(
                 content: Text('${product.name} added to cart!'),
+                duration: const Duration(seconds: 2),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },

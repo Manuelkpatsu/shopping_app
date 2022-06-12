@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -54,17 +55,24 @@ class MainScreen extends StatelessWidget {
                 type: BottomNavigationBarType.fixed,
                 currentIndex: appStore.currentPageIndex,
                 onTap: (index) => context.read<AppStore>().changePage(index),
-                items: const [
-                  BottomNavigationBarItem(
+                items: [
+                  const BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.home),
                     label: 'Products',
                   ),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.search),
                     label: 'Search',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.shopping_cart),
+                    icon: Badge(
+                      toAnimate: false,
+                      badgeContent: Text(
+                        appStore.totalCartQuantity.toString(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      child: const Icon(CupertinoIcons.shopping_cart),
+                    ),
                     label: 'Cart',
                   ),
                 ],
