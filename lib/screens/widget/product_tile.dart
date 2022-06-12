@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shopping_app/model/product.dart';
 import 'package:shopping_app/store/app_store.dart';
 import 'package:shopping_app/theme/styles.dart';
@@ -12,29 +13,31 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          productThumbnail(),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  productName(),
-                  const SizedBox(height: 8),
-                  productPrice(),
-                ],
+    return Observer(builder: (context) {
+      return Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            productThumbnail(),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    productName(),
+                    const SizedBox(height: 8),
+                    productPrice(),
+                  ],
+                ),
               ),
             ),
-          ),
-          addToFavoriteButton(context),
-        ],
-      ),
-    );
+            addToFavoriteButton(context),
+          ],
+        ),
+      );
+    });
   }
 
   Widget productThumbnail() {
@@ -65,9 +68,19 @@ class ProductTile extends StatelessWidget {
   }
 
   Widget addToFavoriteButton(BuildContext context) {
+    final productIsInCart = context.watch<AppStore>().isInCart(product.id);
+
     return IconButton(
       splashRadius: 20,
-      onPressed: () => context.read<AppStore>().addProductToCart(product.id),
+      onPressed: productIsInCart == true
+          ? null
+          : () {
+              context.read<AppStore>().addProductToCart(product.id);
+              final snackBar = SnackBar(
+                content: Text('${product.name} added to cart!'),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
       icon: const Icon(CupertinoIcons.shopping_cart),
     );
   }

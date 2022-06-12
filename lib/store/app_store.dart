@@ -83,11 +83,18 @@ abstract class _AppStore with Store {
     }
   }
 
+  @computed
+  bool get hasItemsInCart {
+    return productsInCart.isNotEmpty;
+  }
+
   List<Product> search() {
     return copyOfProducts.where((product) {
       return product.name.toLowerCase().contains(searchQuery.toLowerCase());
     }).toList();
   }
+
+  bool isInCart(int productId) => productsInCart.containsKey(productId);
 
   @action
   void clearSearchQuery() {

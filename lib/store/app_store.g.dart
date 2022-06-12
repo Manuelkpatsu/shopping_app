@@ -37,6 +37,13 @@ mixin _$AppStore on _AppStore, Store {
           Computed<List<Product>>(() => super.copyOfProducts,
               name: '_AppStore.copyOfProducts'))
       .value;
+  Computed<bool>? _$hasItemsInCartComputed;
+
+  @override
+  bool get hasItemsInCart =>
+      (_$hasItemsInCartComputed ??= Computed<bool>(() => super.hasItemsInCart,
+              name: '_AppStore.hasItemsInCart'))
+          .value;
 
   late final _$currentPageIndexAtom =
       Atom(name: '_AppStore.currentPageIndex', context: context);
@@ -242,7 +249,8 @@ productsInCart: ${productsInCart},
 totalCartQuantity: ${totalCartQuantity},
 subtotalCost: ${subtotalCost},
 shippingCost: ${shippingCost},
-copyOfProducts: ${copyOfProducts}
+copyOfProducts: ${copyOfProducts},
+hasItemsInCart: ${hasItemsInCart}
     ''';
   }
 }

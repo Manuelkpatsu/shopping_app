@@ -26,7 +26,7 @@ class _CartScreenState extends State<CartScreen> {
       ),
       body: Observer(
         builder: (context) {
-          if (appStore.productsInCart.isNotEmpty) {
+          if (appStore.hasItemsInCart) {
             return Column(
               children: [
                 Expanded(

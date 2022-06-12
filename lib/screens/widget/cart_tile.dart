@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shopping_app/model/product.dart';
+import 'package:shopping_app/store/app_store.dart';
 import 'package:shopping_app/theme/styles.dart';
+
+import 'custom_icon_button.dart';
 
 class CartTile extends StatelessWidget {
   final Product product;
@@ -19,24 +23,50 @@ class CartTile extends StatelessWidget {
       child: Row(
         children: [
           productThumbnail(),
+          const SizedBox(width: 10),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       productName(),
-                      productPrice(),
+                      const SizedBox(height: 4),
+                      productQuantity(),
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  productQuantity(),
-                ],
-              ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    productPrice(),
+                    const SizedBox(height: 4),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomIconButton(
+                          icon: Icons.add,
+                          onTap: () => context
+                              .read<AppStore>()
+                              .addProductToCart(product.id),
+                        ),
+                        const SizedBox(width: 5),
+                        quantityText(),
+                        const SizedBox(width: 5),
+                        CustomIconButton(
+                          icon: Icons.remove,
+                          onTap: () => context
+                              .read<AppStore>()
+                              .removeProductFromCart(product.id),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],
@@ -60,6 +90,8 @@ class CartTile extends StatelessWidget {
   Widget productName() {
     return Text(
       product.name,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
       style: Styles.productRowItemName,
     );
   }
@@ -76,6 +108,28 @@ class CartTile extends StatelessWidget {
       '${quantity > 1 ? '$quantity x ' : ''}'
       'Ghs${product.price.toStringAsFixed(2)}',
       style: Styles.productRowItemPrice,
+    );
+  }
+
+  Widget quantityText() {
+    return Container(
+      alignment: Alignment.center,
+      height: 40,
+      width: 30,
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color: Colors.blue,
+      ),
+      child: Text(
+        quantity.toString(),
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+      ),
     );
   }
 }
