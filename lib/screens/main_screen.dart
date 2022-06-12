@@ -16,6 +16,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appStore = context.read<AppStore>();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -26,8 +28,8 @@ class MainScreen extends StatelessWidget {
       home: ReactionBuilder(
         builder: (context) {
           return autorun((_) {
-            final isLoading = context.read<AppStore>().isLoading;
-            if (isLoading) {
+            // handle loading screen
+            if (appStore.isLoading) {
               LoadingScreen.instance().show(
                 context: context,
                 text: 'Loading...',
@@ -39,7 +41,6 @@ class MainScreen extends StatelessWidget {
         },
         child: Observer(
           builder: (context) {
-            final appStore = context.watch<AppStore>();
             return Scaffold(
               body: IndexedStack(
                 index: appStore.currentPageIndex,
@@ -54,7 +55,7 @@ class MainScreen extends StatelessWidget {
                 backgroundColor: Colors.white,
                 type: BottomNavigationBarType.fixed,
                 currentIndex: appStore.currentPageIndex,
-                onTap: (index) => context.read<AppStore>().changePage(index),
+                onTap: (index) => appStore.changePage(index),
                 items: [
                   const BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.home),
