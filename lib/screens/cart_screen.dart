@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_app/dialogs/clear_cart_dialog.dart';
 import 'package:shopping_app/store/app_store.dart';
 import 'package:shopping_app/theme/styles.dart';
 
@@ -52,10 +53,11 @@ class _CartScreenState extends State<CartScreen> {
                   color: Colors.white,
                   padding: const EdgeInsets.all(16),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           shippingCost(appStore.shippingCost),
                           const SizedBox(height: 6),
@@ -63,7 +65,8 @@ class _CartScreenState extends State<CartScreen> {
                           const SizedBox(height: 6),
                           totalCost(appStore.totalCost),
                         ],
-                      )
+                      ),
+                      clearCartButton(),
                     ],
                   ),
                 )
@@ -117,6 +120,22 @@ class _CartScreenState extends State<CartScreen> {
     return Text(
       'Total: Ghs${totalCost.toStringAsFixed(2)}',
       style: Styles.productRowTotal,
+    );
+  }
+
+  Widget clearCartButton() {
+    return ElevatedButton(
+      onPressed: () async {
+        final shouldDeleteReminder = await showClearCartDialog(context);
+        if (shouldDeleteReminder) {
+          context.read<AppStore>().clearCart();
+        }
+      },
+      child: const Text('Clear Cart'),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.blue,
+        onPrimary: Colors.white,
+      ),
     );
   }
 }
